@@ -1,0 +1,91 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: play-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: go-auth-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - play-gateway
+  http:
+    - match:
+      - uri:
+          prefix: /auth/
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: go-auth-service
+            port:  
+              number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: rekkids-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - play-gateway
+  http:
+    - match:
+      - uri:
+          prefix: /music/
+      rewrite:
+        uri: /api/
+      route:
+        - destination:
+            host: rekkids-service
+            port:  
+              number: 4000
+---
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: jwt-auth
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  jwtRules:
+  - issuer: go-auth
+    jwksUri: http://go-auth-service.default.svc.cluster.local/jwks
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: frontend-ingress
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        requestPrincipals: ["go-auth/*"]
+  - to:
+    - operation:
+        methods: ["POST"]
+        paths: ["/auth/tokens"]
+    - operation:
+        methods: ["GET"]
+        paths: ["/auth/jwks"]

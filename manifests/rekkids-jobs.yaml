@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rekkids-db-migrate
+spec:
+  template:
+    spec:
+      containers:
+      - name: rekkids-db-migrate-job
+        image: rekkids-image
+        command: ["mix"]
+        args: ["ecto.migrate"]
+      restartPolicy: Never
+  backoffLimit: 0
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rekkids-run-tests
+spec:
+  template:
+    spec:
+      containers:
+      - name: rekkids-run-tests-job
+        image: rekkids-image
+        command: ["mix"]
+        args: ["test"]
+      restartPolicy: Never
+  backoffLimit: 0

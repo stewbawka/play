@@ -1,0 +1,136 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-auth-service
+  labels:
+    app: go-auth
+spec:
+  ports:
+    - name: http-goauth
+      port: 80
+  selector:
+    app: go-auth
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jwt-keypairs-configmap
+data:
+  private-key.pem: |
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpAIBAAKCAQEAwS4Zwm2WVzYJ0MaCjkKtXPyIrQ3+hscqew/zhexqJDAw6Ep0
+    avTR/OlXiHabYSaC1NtBGPBAUblmHt66vis3+lssim8L6CatisocVP3q4zFwcBov
+    DYPrSADuGw3IgQRQ5dNK/H3xABX6xeOvyb4vJVL2tYTljHfy/IB5tqZBDmh2PE9V
+    rSBSj/E7s7vdfKfTPSGLlwMGhD9ZTH7nBK/K+EXIjaQqzR/Yy0KGcsHRwZJaPtQq
+    IzIknZ+mOuYFIAOJp+ma+FV4nvhrqRRalq9BbKbWVgryVxFK2ZD8LEriMx9DmpIC
+    qEz7KuIoEiNorpf3KbXjO1zRSKoa+myYzbAZOwIDAQABAoIBAHueVpmWqwgv6mQR
+    Q+ZpQKsqZwPm2qPAu6x4bquat+lkdUeQraLr+5xObddDnvayQDKaA7RDucUSUQkc
+    GoArA+1PftcvbH0okxEneK3itvaf4oW6G7YYXu16uuPRFCeLbYFEjs24ggo+BnWv
+    2APPkjfeOUW7P3F+KJ3wUPLSvPrMPNLE1Qo4lMXXLAFuyKCGsuYG3ff7oyYYsZsJ
+    H9SuEAssxggmrfNFvYeXG81iA4MO5Qwn0es2ugIZL/bpziQIc0YEyT+GryBqyL+u
+    Emv9f8r25HIeL+pVEoDl6S4/lY9ECEOpLn5PFEKEoCapiPml0PcSt8Qa3qHhmlot
+    Ok8K8QECgYEA7vnukJKlOJiWjORA/kAmAlLBaqlvu47uTQnSuZCqGVpk+mXyBdHj
+    ikvC6OEIZapJFQE/JineoTdwHsGsfbUhTh3184/vNy0aQCQ/zFm+atVvsBotNh/r
+    zv022IXxQVzbhLqNYtfWj5P/jV7PaE5curdZuyesipW1rImp+F39dXsCgYEAzvEC
+    riIA7MeuLX6OpkBVHLByloC9L3qDJCRUeobS8Ey/aF3+tA2WOsLP8F1A2HvSGkje
+    od9RdG0voGDVY3CnnJG0LJnCQUFEMHXh0Dyfs68Kz8qg40qpanz9LurSqhw4yQWv
+    RhKff5bhOHzLcH3VCPhjBlodkwjBM//uj+eEP0ECgYAJuK0VwIFsHfjx3k8uiJmD
+    Oq6XkjDzZksXYzDpT5M72MuGzCLeTb194LsbEhxvVlAGxLg26zkdQc4T0jkcHAQw
+    01MwB0jp67HHrjHSNExkuC4E8euo6f+DuhVDFZ/M0uQzMAuUW8dkq9aXf6XcTmPD
+    TLYfwOtp79EmJat+aQRohQKBgQCZBZRyyQggDoOYdoXrH5UQMtV4vtemHRSODCM/
+    uySNtmKvPRoTcByPdPCoD3zc16qD7zBZSDYGPprCH/iKoIoAd6lgdY40DJvsra59
+    +eYpyxzWjEIt8E6YRLY/FDsUuOuwkfiKe0jf4uTFjVot4449JNasosRNrmKXHf/8
+    /zhGQQKBgQDgo8j07LZRkifTl94Ippeq83uhzrzWXNnpxKnMTlvsivctYDmp9AIP
+    2BwrofpmPPrRtel5yjKslTwdsrNhCNdUEGJWpWMMEI39ixXpg9Jn8mKEDOF31HAc
+    Ah9C6vHflTJvgUvxg+6kH/WAgyVxhb2ZxqJ18N2LIG7sU8x0M+qVaQ==
+    -----END RSA PRIVATE KEY-----
+  public-key.pem: |
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwS4Zwm2WVzYJ0MaCjkKt
+    XPyIrQ3+hscqew/zhexqJDAw6Ep0avTR/OlXiHabYSaC1NtBGPBAUblmHt66vis3
+    +lssim8L6CatisocVP3q4zFwcBovDYPrSADuGw3IgQRQ5dNK/H3xABX6xeOvyb4v
+    JVL2tYTljHfy/IB5tqZBDmh2PE9VrSBSj/E7s7vdfKfTPSGLlwMGhD9ZTH7nBK/K
+    +EXIjaQqzR/Yy0KGcsHRwZJaPtQqIzIknZ+mOuYFIAOJp+ma+FV4nvhrqRRalq9B
+    bKbWVgryVxFK2ZD8LEriMx9DmpICqEz7KuIoEiNorpf3KbXjO1zRSKoa+myYzbAZ
+    OwIDAQAB
+    -----END PUBLIC KEY-----
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config-configmap
+data:
+  default.conf: |
+    upstream backend {
+        server localhost:8080;
+    }
+
+    server {
+        listen 80;
+
+        server_name _;
+
+        access_log  /var/log/nginx/access.log;
+        error_log  /var/log/nginx/error.log debug;
+
+        root /app/build/;
+
+        location / {
+            try_files $uri @backend;
+        }
+
+        location @backend {
+            proxy_pass http://backend;
+
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        # Deny access to htaccess and htpasswd files
+        location ~ /\.ht {
+            deny  all;
+        }
+
+        # Deny access to hidden files
+        location ~ /\. {
+            access_log off; log_not_found off; deny all;
+        }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-auth
+  labels:
+    app: go-auth
+spec:
+  selector:
+    matchLabels:
+      app: go-auth
+  template:
+    metadata:
+      labels:
+        app: go-auth
+    spec:
+      volumes:
+        - name: nginx-conf-volume
+          configMap:
+            name: nginx-config-configmap
+        - name: jwt-keypairs-volume
+          configMap:
+            name: jwt-keypairs-configmap
+      containers:
+        - name: go-auth
+          image: go-auth-image
+          volumeMounts:
+            - name: jwt-keypairs-volume
+              mountPath: /jwt-keypairs
+        - name: go-auth-nginx
+          image: nginx:stable-alpine
+          volumeMounts:
+            - name: nginx-conf-volume
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+          ports:
+            - containerPort: 80

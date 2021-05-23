@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rekkids-service
+  labels:
+    app: rekkids
+spec:
+  ports:
+    - name: http-rekkids
+      port: 4000
+  selector:
+    app: rekkids
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rekkids
+  labels:
+    app: rekkids
+spec:
+  selector:
+    matchLabels:
+      app: rekkids
+  template:
+    metadata:
+      labels:
+        app: rekkids
+    spec:
+      containers:
+        - name: rekkids
+          image: rekkids-image
+          ports:
+            - containerPort: 4000
