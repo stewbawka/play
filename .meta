@@ -1,6 +1,8 @@
 {
   "projects": {
     "go-auth": "git@github.com:stewbawka/go-auth.git",
-    "rekkids": "git@github.com:stewbawka/rekkids.git"
+    "rekkids": "git@github.com:stewbawka/rekkids.git",
+    "elm-play": "git@github.com:stewbawka/elm-play.git",
+    "elm-admin": "git@github.com:stewbawka/elm-admin.git"
   }
 }

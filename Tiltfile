@@ -16,5 +16,10 @@ local_resource(
     cmd='cd jwt-keypairs; openssl genrsa -out private-key.pem 2048; openssl rsa -in private-key.pem -pubout -out public-key.pem',
 )
 
+local_resource(
+    'elm-admin', 
+    serve_cmd='cd elm-admin; npm run build-css; elm-app start',
+)
+
 docker_build('go-auth-image', 'go-auth/.')
 docker_build('rekkids-image', 'rekkids/.')

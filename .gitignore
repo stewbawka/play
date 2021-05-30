@@ -1,5 +1,5 @@
 /go-auth/
 /rekkids/
-
-/go-auth/
-/rekkids/
+/elm-play/
+/elm-admin/
+/jwt-keypairs/*.pem
