@@ -21,5 +21,10 @@ local_resource(
     serve_cmd='cd elm-admin; npm run build-css; elm-app start',
 )
 
+local_resource(
+    'elm-format', 
+    cmd='cd elm-admin; elm-format . --yes',
+)
+
 docker_build('go-auth-image', 'go-auth/.')
 docker_build('rekkids-image', 'rekkids/.')
