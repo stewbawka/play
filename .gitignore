@@ -2,4 +2,6 @@
 /rekkids/
 /elm-play/
 /elm-admin/
+/vue-auth/
+/frontends-root-config/
 /jwt-keypairs/*.pem

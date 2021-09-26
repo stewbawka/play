@@ -22,6 +22,15 @@ local_resource(
 )
 
 local_resource(
+    'frontends-root-config', 
+    serve_cmd='cd frontends-root-config; npm run start',
+)
+local_resource(
+    'frontends-auth', 
+    serve_cmd='cd vue-auth; npm run serve',
+)
+
+local_resource(
     'elm-format', 
     cmd='cd elm-admin; elm-format . --yes',
 )

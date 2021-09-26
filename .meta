@@ -3,6 +3,8 @@
     "go-auth": "git@github.com:stewbawka/go-auth.git",
     "rekkids": "git@github.com:stewbawka/rekkids.git",
     "elm-play": "git@github.com:stewbawka/elm-play.git",
-    "elm-admin": "git@github.com:stewbawka/elm-admin.git"
+    "elm-admin": "git@github.com:stewbawka/elm-admin.git",
+    "vue-auth": "git@github.com:stewbawka/play-auth-frontend.git",
+    "frontends-root-config": "git@github.com:stewbawka/play-microfrontends.git"
   }
 }
