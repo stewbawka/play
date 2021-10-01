@@ -5,6 +5,7 @@
     "elm-play": "git@github.com:stewbawka/elm-play.git",
     "elm-admin": "git@github.com:stewbawka/elm-admin.git",
     "vue-auth": "git@github.com:stewbawka/play-auth-frontend.git",
-    "frontends-root-config": "git@github.com:stewbawka/play-microfrontends.git"
+    "frontends-root-config": "git@github.com:stewbawka/play-microfrontends.git",
+    "styleguide": "git@github.com:stewbawka/play-styleguide.git"
   }
 }

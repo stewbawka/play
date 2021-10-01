@@ -29,6 +29,10 @@ local_resource(
     'frontends-auth', 
     serve_cmd='cd vue-auth; npm run serve',
 )
+local_resource(
+    'frontends-styleguide', 
+    serve_cmd='cd styleguide; npm run start',
+)
 
 local_resource(
     'elm-format', 
