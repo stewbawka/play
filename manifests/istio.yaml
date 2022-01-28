@@ -89,3 +89,5 @@ spec:
     - operation:
         methods: ["GET"]
         paths: ["/auth/jwks"]
+    - operation:
+        methods: ["OPTIONS"]
