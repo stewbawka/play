@@ -88,6 +88,9 @@ spec:
         paths: ["/auth/tokens"]
     - operation:
         methods: ["GET"]
+        paths: ["/auth/tokens/me"]
+    - operation:
+        methods: ["GET"]
         paths: ["/auth/jwks"]
     - operation:
         methods: ["OPTIONS"]
