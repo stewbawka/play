@@ -6,3 +6,4 @@
 /frontends-root-config/
 /jwt-keypairs/*.pem
 /styleguide/
+/vue-nav/
