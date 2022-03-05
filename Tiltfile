@@ -33,6 +33,10 @@ local_resource(
     'frontends-styleguide', 
     serve_cmd='cd styleguide; npm run start',
 )
+local_resource(
+    'frontends-nav', 
+    serve_cmd='cd vue-nav; npm run serve',
+)
 
 local_resource(
     'elm-format', 
