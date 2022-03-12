@@ -90,6 +90,9 @@ spec:
         methods: ["GET"]
         paths: ["/auth/tokens/me"]
     - operation:
+        methods: ["POST"]
+        paths: ["/auth/tokens/invalidate"]
+    - operation:
         methods: ["GET"]
         paths: ["/auth/jwks"]
     - operation:
