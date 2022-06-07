@@ -87,6 +87,9 @@ spec:
         methods: ["POST"]
         paths: ["/auth/tokens"]
     - operation:
+        methods: ["PATCH"]
+        paths: ["/auth/users/*"]
+    - operation:
         methods: ["GET"]
         paths: ["/auth/tokens/me"]
     - operation:
