@@ -1,6 +1,9 @@
 # -*- mode: Python -*-
 
 k8s_yaml([
+    'manifests/envoyfilter.yaml', 
+    'manifests/opaconfig.yaml', 
+    'manifests/slp.yaml', 
     'manifests/mysql.yaml', 
     'manifests/go-auth.yaml', 
     'manifests/rekkids.yaml', 

@@ -67,6 +67,7 @@ spec:
   jwtRules:
   - issuer: go-auth
     jwksUri: http://go-auth-service.default.svc.cluster.local/jwks
+    outputPayloadToHeader: x-jwt
 ---
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy

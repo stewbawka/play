@@ -128,13 +128,6 @@ spec:
       labels:
         app: go-auth
     spec:
-      volumes:
-        - name: nginx-conf-volume
-          configMap:
-            name: nginx-config-configmap
-        - name: jwt-keypairs-volume
-          configMap:
-            name: jwt-keypairs-configmap
       containers:
         - name: go-auth
           image: go-auth-image
@@ -149,3 +142,41 @@ spec:
               subPath: default.conf
           ports:
             - containerPort: 80
+        - name: opa
+          image: openpolicyagent/opa:0.40.0-envoy-rootless
+          volumeMounts:
+          - readOnly: true
+            mountPath: /config
+            name: opa-config-vol
+          livenessProbe:
+            httpGet:
+              path: /health
+              scheme: HTTP
+              port: 8282
+            initialDelaySeconds: 5      # Tune these periods for your environemnt
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health?bundle=true  # Include bundle activation in readiness
+              scheme: HTTP
+              port: 8282
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          args:
+          - "run"
+          - "--server"
+          - "--ignore=.*"
+          - "--config-file=/config/conf.yaml"
+          - "--authorization=basic"
+          - "--addr=http://127.0.0.1:8181"
+          - "--diagnostic-addr=0.0.0.0:8282"
+      volumes:
+        - name: nginx-conf-volume
+          configMap:
+            name: nginx-config-configmap
+        - name: jwt-keypairs-volume
+          configMap:
+            name: jwt-keypairs-configmap
+        - name: opa-config-vol
+          configMap:
+            name: opa-istio-config

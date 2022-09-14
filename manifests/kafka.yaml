@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka
+  labels:
+    app: kafka
+spec:
+  ports:
+    - port: 9092
+  selector:
+    app: kafka
+    tier: kafka
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka
+  labels:
+    app: kafka
+spec:
+  selector:
+    matchLabels:
+      app: kafka
+      tier: kafka
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: kafka
+        tier: kafka
+    spec:
+      containers:
+      - image: confluentinc/cp-kafka:5.0.0
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: very_secure_password
+        command: ["/bin/sh"]
+        args: ["-c", "echo 'CREATE DATABASE IF NOT EXISTS go_auth_db; CREATE DATABASE IF NOT EXISTS go_auth_db_test; CREATE DATABASE IF NOT EXISTS rekkids_app_dev; CREATE DATABASE IF NOT EXISTS rekkids_app_test' > /docker-entrypoint-initdb.d/init.sql; /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"]
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
