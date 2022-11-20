@@ -1,0 +1,31 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: play
+build:
+  artifacts:
+  - image: go-auth-image
+    context: go-auth
+    docker:
+      dockerfile: Dockerfile
+  - image: rekkids-image
+    context: rekkids
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  statusCheck: false
+manifests:
+  rawYaml:
+  - manifests/istio.yaml
+  - manifests/envoyfilter.yaml
+  - manifests/opaconfig.yaml
+  - manifests/slp.yaml
+  - manifests/kafka.yaml
+  - manifests/mysql.yaml
+  - manifests/go-auth.yaml
+  - manifests/rekkids.yaml
+portForward:
+- resourceType: Deployment
+  resourceName: mysql
+  port: 3306
+  localPort: 3307

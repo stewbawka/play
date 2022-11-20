@@ -21,3 +21,21 @@ viewer
 
 `brew install kafkacat`
 `kcat -b localhost:9092 -L`
+
+# Tilt setup
+
+## Install
+`curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash`
+
+## Run project
+`tilt up`
+
+# Skaffold setup
+
+## Install
+`brew install skaffold`
+
+## Troubleshooting port-forwards
+`ps -f | grep 'kubectl' | grep 'port-forward' | awk '{print $10 " " $11}'`
+For some reason user defined port forwards not working.. but using kubectl directly works:
+`kubectl port-forward service/go-auth-service 8080:80`
