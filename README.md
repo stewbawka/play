@@ -35,7 +35,8 @@ viewer
 ## Install
 `brew install skaffold`
 
+## Run project
+`skaffold dev`
+
 ## Troubleshooting port-forwards
 `ps -f | grep 'kubectl' | grep 'port-forward' | awk '{print $10 " " $11}'`
-For some reason user defined port forwards not working.. but using kubectl directly works:
-`kubectl port-forward service/go-auth-service 8080:80`

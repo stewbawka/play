@@ -27,5 +27,11 @@ manifests:
 portForward:
 - resourceType: Deployment
   resourceName: mysql
+  namespace: default
   port: 3306
   localPort: 3307
+- resourceType: Deployment
+  resourceName: go-auth
+  namespace: default
+  port: 80
+  localPort: 8080
