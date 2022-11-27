@@ -40,3 +40,9 @@ viewer
 
 ## Troubleshooting port-forwards
 `ps -f | grep 'kubectl' | grep 'port-forward' | awk '{print $10 " " $11}'`
+
+# k9s setup
+Used for inspecting running k8s workloads
+
+## Install
+`brew install k9s`
