@@ -67,7 +67,8 @@ spec:
   jwtRules:
   - issuer: go-auth
     jwksUri: http://go-auth-service.default.svc.cluster.local/jwks
-    outputPayloadToHeader: x-user
+    outputPayloadToHeader: "X-Jwt"
+    forwardOriginalToken: false
     fromHeaders:
       - name: Authorization
         prefix: "Bearer "
