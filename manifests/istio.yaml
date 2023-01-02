@@ -67,7 +67,10 @@ spec:
   jwtRules:
   - issuer: go-auth
     jwksUri: http://go-auth-service.default.svc.cluster.local/jwks
-    outputPayloadToHeader: x-jwt
+    outputPayloadToHeader: x-user
+    fromHeaders:
+      - name: Authorization
+        prefix: "Bearer "
 ---
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
@@ -99,5 +102,11 @@ spec:
     - operation:
         methods: ["GET"]
         paths: ["/auth/jwks"]
+    - operation:
+        methods: ["POST"]
+        paths: ["/music/tracks"]
+    - operation:
+        methods: ["GET"]
+        paths: ["/music/tracks"]
     - operation:
         methods: ["OPTIONS"]
