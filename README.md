@@ -46,3 +46,22 @@ Used for inspecting running k8s workloads
 
 ## Install
 `brew install k9s`
+
+## Protobufs
+
+Protobufs found in /protobufs directory
+
+# troubleshooting cmd
+* make sure deps are installed 
+* make sure PATH and GOPATH env variables set properly
+
+```
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+```
+
+# example cmds to generate client code 
+* go-auth (golang) : `protoc --go_out=go-auth protobufs/user.proto`
+* rekkids (elixir) : `protoc --elixir_out=rekkids/lib protobufs/user.proto`
