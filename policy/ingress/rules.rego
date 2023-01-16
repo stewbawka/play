@@ -31,7 +31,7 @@ allow {
   data_json := base64url.decode(jwt_payload)
   data_obj := json.unmarshal(data_json)
   user = json.unmarshal(data_obj.data)
-  user.id == to_number(user_id)
+  user.id == user_id
 }
 
 allow {
@@ -41,7 +41,7 @@ allow {
   data_json := base64url.decode(jwt_payload)
   data_obj := json.unmarshal(data_json)
   user = json.unmarshal(data_obj.data)
-  user.id == to_number(user_id)
+  user.id == user_id
 }
 
 allow {
