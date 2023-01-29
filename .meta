@@ -7,6 +7,7 @@
     "vue-auth": "git@github.com:stewbawka/play-auth-frontend.git",
     "frontends-root-config": "git@github.com:stewbawka/play-microfrontends.git",
     "styleguide": "git@github.com:stewbawka/play-styleguide.git",
-    "vue-nav": "git@github.com:stewbawka/play-nav.git"
+    "vue-nav": "git@github.com:stewbawka/play-nav.git",
+    "svelte-rekkids": "git@github.com:stewbawka/svelte-rekkids.git"
   }
 }
